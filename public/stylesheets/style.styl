@@ -1,0 +1,670 @@
+$color_main = #ff9501
+$color_main_light = #ffc500
+$color_main_dark = #ff6400
+$color_background = #fefefe
+$color_background_table = #ffedb3
+
+$color_valuechain_border = $color_main_dark
+$color_valuechain_icon = $color_main
+
+$font_normal = Helvetica, STHeiti, "Microsoft JhengHei", "微軟正黑體", PMingLiU, "Lucida Grande", Arial, sans-serif
+
+$width_main = 960px
+
+/***************
+ * General
+ ***************/
+body
+	margin: 0
+	padding: 0
+	font-family: $font_normal
+	font-size: 62.5% /* Let 1em = 10px */ 
+	background-color: $color_background
+	// Neil_20141027: The followings make header fixed error.
+	// perspective: 1px;
+	// transform-style: preserve-3d;
+a
+	text-decoration: none
+	color: #000
+
+h2
+	margin-bottom: 20px
+	font-size: 1.4em
+	font-weight: bold
+
+.color_main
+	color: $color_main
+.color_main_dark
+	color: $color_main_dark
+.color_main_light
+	color: $color_main_light
+
+hr
+	border-top: 2px dashed $color_main
+	margin: 30px auto
+
+.simple_form
+	margin: 30px 0
+	.error
+		color: red
+	.line
+		margin-top: .5em
+	.center
+		text-align: center
+	.right
+		text-align: right
+	label
+		display: inline-block
+		margin-right: 10px
+
+.simple_table
+	border: 2px solid $color_main
+	border-collapse: collapse
+	tr:nth-child(odd)
+		background-color: $color_background_table
+	th, td
+		padding: 2px 5px
+		border-right: 1px solid $color_main_light
+	th
+		color: $color_background_table
+		background-color: $color_main
+	a
+		color:#00f
+
+/***************
+ * jQuery UI
+ ***************/
+.ui_button
+	border-radius: 4px
+	margin-right: 5px
+	.ui-button-text
+		font-size: 10px
+		padding: .2em 1em
+
+.ui-dialog-title
+	font-size: 1.6em
+.ui-dialog-content
+	label
+		line-height: 2em
+		font-size: 1.3em
+	input[type=text]
+		width: 80%
+	textarea
+		width: 80%
+		height: 5em
+		vertical-align: top
+/***************
+ * Sprite
+ ***************/
+.sprite
+	display: inline-block
+	background-image: url('../images/sprite_100_100.png')
+	background-size: 200px 40px
+	width: 40px
+	height: 40px
+.sprite_education
+	background-position: 0 0
+.sprite_resource
+	background-position: -100% 0
+.sprite_practice
+	background-position: -200% 0
+.sprite_venture
+	background-position: -300% 0
+.sprite_entrepreneur
+	background-position: -400% 0
+
+/***************
+ * Header & Footer
+ ***************/
+
+header
+	position: fixed
+	top: 0
+	left: 0
+	width: 100%
+	z-index: 1000
+	background-color: #fff
+	box-shadow: 0 0 5px #888
+
+#header
+	position: relative
+	width: $width_main
+	height: 60px
+	margin: 0 auto
+	font-size: 1.4em
+	#header_logo
+		display: inline-block
+		position: absolute
+		top: 15px
+		left: 0
+		width: 180px
+		line-height: 30px
+		font-weight: bold
+		font-size: 1.3em
+		// height: 30px
+		// background-image: url('../images/logo.png')
+	ul#header_menu
+		position: absolute
+		// top: 15px
+		right: 4px
+		margin: 0
+		padding: 0
+		li
+			display: inline-block
+			vertical-align: top
+			padding: 0 15px
+			line-height: 60px
+			color: #888
+		li:hover
+			color: #fff
+			background-color: $color_main
+		.input:hover
+			background-color: #fff
+	#header_search
+	display: inline-block
+	background-color: #e6e6e6
+	border: 1px solid #d3d3d3
+	color: #555
+	padding: 5px
+	border-radius: 5px
+	input
+		border: 0
+		// padding: 0
+		// margin: 0
+		background-color: #e6e6e6
+	.button_search
+		border: 0
+		// margin: 0
+		// background-color: #000
+		// padding: 0
+		margin: 0 3px
+
+#footer
+	width: 100%
+	height: 100px
+	margin-top: 50px
+	line-height: 100px
+	font-size: 1.5em
+	text-align: center
+	color: #c2c2c2
+	background-color: #f0f0f0
+
+
+// .sprite
+// 	display: inline-block
+// 	width: 64px
+// 	height: 64px
+// 	overflow: hidden
+// 	background-size: 500px 100px
+// 	background-image: url('../images/sprite_200_128.png')
+// 	background-repeat: no-repeat
+
+// .sprite_education
+// 	background-position: 0 0
+// .sprite_resource
+// 	background-position: -100px 0 
+// .sprite_practice
+// 	background-position: -200px 0
+// .sprite_venture
+// 	background-position: -300px 0
+// .sprite_entrepreneur 
+// 	background-position: -400px 0
+
+/***************
+ * Page
+ ***************/
+
+#page_container
+	padding-top: 60px
+	margin: 0 auto
+	position: relative
+
+.page_use
+	margin: 0 20px
+	font-size: 1.5em
+.page
+	width: $width_main
+	margin: 0 auto
+	font-size: 1.5em
+	.center
+		text-align:center
+		margin: 100px auto
+		#line
+			margin: 100px auto
+	.one_cr
+		margin: 20px auto
+		font-size: 1.5em
+		.plat_li
+			font-size: 0.8em
+			margin: 5px auto
+	.ln
+		border-top: 1px solid #d3d3d3
+	.self_sort
+		width: 250px
+		display: inline-block
+		vertical-align: top
+		.last
+			margin-bottom: 10px
+		li
+			height: 40px
+			overflow: scroll
+#event_rotation
+	.event
+		position: relative
+		display: inline-block
+		width: 100%
+		min-height: 500px
+		overflow: hidden
+		.event_image
+			position: absolute
+			top: 0
+			left: 0
+			width: 100%
+			height: 110%
+			background-position: center -100px
+			// background-size: auto 100%
+			background-size: 100% auto
+			background-repeat: no-repeat
+		.event_image_event
+			position: relative
+			height: 100%
+			width: 100%
+		.event_text
+			position: absolute
+			left: 0
+			bottom: 0
+			width: 100%
+			padding: 20px 0
+			text-align: center
+			background-color: #fff
+			border-top: 1px solid #d3d3d3
+			// background-color: rgba(0, 0, 0, .8)
+			.info
+				display: inline-block
+				width: 40%
+				margin: 0 auto
+				.title
+					text-align: center
+					font-size: 2em
+					// color: #ddd
+				.datetime
+					// float: left
+					margin-top: 5px
+					margin-right: 10px
+					font-size: 1.5em
+					// color: #bbb
+				.address
+					// float: right
+					margin-top: 5px
+					font-size: 1.5em
+					// color: #bbb
+
+/***************
+ *  Index
+ ***************/
+
+.valuechain
+	width: 100%
+	margin: 0 auto
+	margin-bottom: 60px
+	// border-bottom: 8px solid #fff
+	// box-shadow: 0 1px 2px #ccc
+	text-align: center
+	.title
+		width: 100%
+		margin: 50px 0
+		border-bottom: 3px solid $color_valuechain_border
+		line-height: .1em
+		font-size: 2.5em
+		span
+			padding: 0 10px
+			color: $color_valuechain_border
+			background: $color_background
+
+.valuechain_icon
+	display: inline-block
+	vertical-align: top
+	margin-bottom: 60px
+	.circle_after
+			content: " "
+			position: relative
+			border-bottom: 2px dashed $color_valuechain_icon
+			width: 200px
+			margin-top: 30px
+		.circle
+			position: absolute
+			top: -23px
+			left: 77px
+			width: 40px
+			height: 40px
+			border-radius: 50%
+			border: 3px solid $color_valuechain_icon
+			box-shadow: 0 1px 2px #ccc
+	.text
+		// width: 200px
+		height: 20px
+		text-align: center
+		letter-spacing: 2px
+		vertical-align: middle
+		color: $color_valuechain_icon
+
+#valuechain_member
+	.circle
+		background-color: #fff
+
+#valuechain_event
+	.circle
+		background-color: #fff
+
+#valuechain_link
+	.circle
+		background-color: #fff
+
+.valuechain_use
+	display: inline-block
+	vertical-align: top
+	width: 20%
+.valuechain_list
+	display: block
+	// height: 300px
+	margin-bottom: 50px
+	vertical-align: top
+	.ul_event
+		text-align: left
+		margin: 0 8px
+	.ul_share
+		text-align: left
+		list-style: disc
+		padding-left: 40px
+	ul
+		list-style: none
+		margin: 0
+		padding: 0
+		li
+			width: 120px
+			height: 50px
+			margin: 10px auto
+			color: #888
+			text-decoration: none
+			text-align: left
+			img
+				width: 100%
+		.bigImg
+			width: 150px
+			height: 40px
+		.li_event
+			width: 100%
+			text-align: left
+			margin-bottom: 10px
+		.li_link
+			width: 100%
+			color: #000
+			text-align: left
+			list-style-type:disc
+			margin: 40px 0
+			// .a_share
+			// 	color: #00f
+		.month
+			float: left
+			display: inline-block
+			width: 20px
+			margin-right: 5px
+			padding: 3px
+			font-size: 0.8em
+			text-align: center
+			// color: #fff
+			background-color: $color_main
+			color: #fff
+			// background-color: #color_main_dark
+
+		.link
+			vertical-align:top
+			font-size: 0.9em
+		.postby
+			text-align: left
+			font-size: .8em
+			a
+				color:#888
+			
+.valuechain_list_nolong
+	// height: 200px
+	width: 70%
+	margin: 0 auto
+	li
+		margin: 10px 0
+.will_add_line
+	// display: block
+	border-top: 1px solid #C8C8C8
+	width: 80%
+	margin: 0 10%
+	text-align: center
+	color: #C8C8C8
+	vertical-align: top
+	ul
+		list-style: none
+		margin: 20px 0
+		padding: 0
+
+.calendar_content
+	// background-color: #ffc500
+	border-top:2px solid #ffc500
+	width: 100%
+	padding: 15px 0
+	.cal_title
+		text-align: center
+		margin-bottom: 30px
+		font-size: 2em
+	.cal2
+		color: #fff
+		display: inline-block
+		margin: 0 30px
+		height: 200px
+		vertical-align: top
+	.event-place
+		width: 180px
+		height: 180px
+		margin: 0 30px
+		border: 1px solid #888
+		display: inline-block
+		vertical-align: top
+		color: #000
+		a
+			width:100%
+			height:auto
+			margin: 10px auto
+			text-decoration: underline
+
+/*************
+* event
+**************/
+.event_header
+	h1
+		 font-weight: bold
+		 font-size: 2em
+.event_content
+		width: $width_main
+		margin: 0 auto
+		// display:inline-block
+		// text-align: center
+
+.event_detail
+	.event_detail_item
+		display: inline-block
+		font-size: 1.5em
+		margin-bottom: 30px
+		color: #a9a9a9
+		.event_detail_title
+			color: $color_main
+			.event_detail_content
+				color: #000
+		div
+			margin: 30px auto
+		p
+			display: inline-block
+			margin: 0
+			width: 900px
+			vertical-align: text-top
+		a
+			color: #a9a9a9
+			text-decoration: underline
+	#address
+		margin-top: -15px
+		border: 1px solid #f00
+		background: #fff
+		padding: 3px 5px
+		color: #f00
+		font-size: 12px
+		line-height: 18px
+	#google_map
+		width: 100%
+		height: 500px
+		margin-bottom: 20px
+
+/*************
+* introduction
+**************/
+.introduction_background
+	background-color: #f7f7f7
+	width: 100%
+	.introduction_content
+		width: $width_main
+		margin: 0 auto
+		h1
+			text-align: center
+/*************
+* contact
+**************/
+.contact_background
+	background-color: #f7f7f7
+	width: 100%
+	.contact_content
+		width: 480px
+		margin: 0 auto
+		height: auto
+		font-size: 1.5em
+		h1
+			font-size: 2em
+		span
+			display: block
+		input
+			margin-bottom: 10px
+		button
+			margin-bottom: 10px
+		textarea
+			vertical-align: top
+			margin: 4px
+
+/*************
+ * Member
+ **************/
+
+#member_image
+	position: relative
+	width: 100%
+	height: 450px
+	margin: 30px 0
+	.category
+		position: absolute
+		top: 40px
+		left: 90px
+		width: 120px
+		height: 120px
+		border: 3px solid $color_main
+		border-radius: 50%
+		.category_mark
+			width: 60px
+			height: 60px
+			background-size: 300px 60px
+			margin: 5px 0 0 30px
+		.category_text
+			display: block
+			color: $color_main
+			font-size: 1.5em
+			text-align: center
+	.logo
+		position: absolute
+		top: 200px
+		left: 0
+		width: 300px
+		height: 200px
+		overflow: hidden
+		img
+			position: absolute
+			bottom: 0
+	.image
+		position: absolute
+		top: 0
+		left: 320px
+		width: 640px
+		height: 400px
+		overflow: hidden
+		img
+			position: absolute
+			top: 0
+
+.member_content
+	position: relative
+	h2
+		margin: 30px 0 15px 0
+	p
+		line-height: 1.8em
+		a
+			color: #00f
+	textarea
+		width: 100%
+		height: 8em
+	
+
+#member_image, .member_content
+	.upload
+		position: absolute
+		right: 0
+		bottom: 0
+		border: 1px solid $color_main_dark
+		border-radius: 3px
+		padding: 3px 5px
+		font-size: 10px
+		color: $color_main_dark
+		background-color: rgba(255, 255, 255, 0.5)
+		cursor: pointer
+	.upload:hover
+		background-color: $color_main_light
+/*******
+* work chance
+********/
+.work_chance
+	font-size: 2.5em
+	color: #000
+	margin: 30px 0
+
+/*******
+* 
+******/
+
+.company_edit
+	width: 960px
+	margin: 20px auto
+	font-size: 1.2em
+	.company_pic
+	.company_logo
+		margin: 20px auto
+	.company_pic_small
+		width: 200px
+		height: auto
+	.company_line
+		border-bottom: 2px dashed $color_main
+		margin: 30px auto
+	.company_cate_ele
+		margin: 0 5px
+	.company_event_share
+	.company_event_list
+		div
+			width: 300px
+			display: inline-block
+	.company_des	
+		margin: 20px 0
+		.company_des_detail
+			margin: 20px
+			
+.ntp_cr_plat_list
+	margin: 5px 0

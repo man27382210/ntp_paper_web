@@ -1,0 +1,6 @@
+extends layout
+
+block body_content
+	ul
+		- for job in ctrl_list_job
+			li #{job.title}

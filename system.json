@@ -1,0 +1,22 @@
+{
+	"NODE_ENV": "development",
+	"development": {
+		"context.domain": 		"",
+		"context.port": 		"3080",
+		"context.host": 		"localhost",
+		"context.path": 		"",
+		"folder.uploads": 		"public/uploads",
+		"folder.tmp": 			"public/tmp",
+		"url.uploads": 			"/uploads",
+		"url.tmp": 				"/tmp",
+		"facebook.app_id":  	"",
+		"facebook.app_secret": 	"",
+		"google.app_id":     	"",
+		"google.app_secret":  	"",
+		"email.account": 		"",
+		"email.password": 		"",
+		"mongodb.host": 		"mongodb://localhost/",
+		"mongodb.dbname": 		"ntp_councilor"
+	}
+}
+

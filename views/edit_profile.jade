@@ -1,0 +1,94 @@
+extends layout
+
+block body_content
+	.company_edit
+		.company_detail
+			form.form_item(method="post", action="/resource/member/#{ctrl_company._id}" enctype="multipart/form-data")
+				//- <input type="hidden" name="_method" value="PUT">
+				.company_name 企業名稱：
+					input(type="text", name="fullname" value="#{ctrl_company.fullname}")
+				.company_logo Logo：
+					input(type="file", name="company_logo")
+					div
+						img.company_pic_small(src="/public/#{ctrl_company._id}_logo")
+				.company_pic 照片：
+					input(type="file", name="company_pic")
+					div
+						img.company_pic_small(src="/public/#{ctrl_company._id}_pic")
+				.company_category 類別：
+					- each cate in GLOBAL.CATEGORY
+						span.company_cate_ele
+							- if(ctrl_company.category==cate.en)
+								input(type="radio", name="category", value="#{cate.en}" checked = true)
+							- else 
+								input(type="radio", name="category", value="#{cate.en}")
+							span #{cate.des}
+				.company_des 描述：
+					.company_des_detail.company_des_aboutus 關於我們：
+						div
+							textarea(name="introduction") #{ctrl_company.introduction}
+					.company_des_detail.company_des_relation 與你的關係：
+						div
+							textarea(name="relation") #{ctrl_company.relation}
+					.company_des_detail.company_des_advance 進一步認識我們：
+						div
+							textarea(name="advantage") #{ctrl_company.advantage}
+				.company_email 聯絡信箱：
+					input(type="text", name="email" value="#{ctrl_company.email}")
+				.company_phone 聯絡電話：
+					input(type="text", name="phone" value="#{ctrl_company.phone}")
+				button.ui_button#cancel 取消
+				button(type="submit").ui_button#save 儲存
+		.company_line
+		.company_post
+			button.ui_button#event 建立活動
+			button.ui_button#link 分享連結
+			button.ui_button#job 刊登職缺
+		.company_line
+		.company_activity_list
+			.company_event_list 舉辦過的活動
+				ul
+					-each event, i in ctrl_company.company_event_list
+						li 
+							div #{event.title}
+							button(data-eidt-id="#{event._id}", data-edit-index=i, data-edit-type="event").edit 修改
+							button(data-delete-id="#{event._id}", data-delete-type="event").delete 刪除
+			.company_event_share 分享過的文章列表
+				ul
+					-each share, i in ctrl_company.company_share_list
+						li 
+							div #{share.title}
+							button(data-eidt-id="#{share._id}", data-edit-index=i, data-edit-type="share").edit 修改
+							button(data-delete-id="#{share._id}", data-delete-type="link").delete 刪除
+							button 進入討論區
+		include includes/dialog_share
+		include includes/dialog_event
+	script.
+		$(function() {
+			$("button#link").click(function(){
+				$('#dialog_post_share').dialog('open');
+			});
+			$("button#event").click(function(){
+				$('#dialog_post_event').dialog('open');
+			});
+			$(".edit").click(function(){
+				if($(this).attr("data-edit-type") == "event"){
+
+					$('#dialog_post_event').dialog('open');	
+				}
+			});
+			$(".delete").click(function(){
+				var id = $(this).attr("data-delete-id");
+				var type = $(this).attr("data-delete-type");
+				$.ajax({
+					url: '/resource/'+type+'/'+id,
+					type: 'DELETE',
+					success: function(result) {
+						console.log(result);
+						location.reload();
+					}
+				});
+			});
+		});
+		
+		

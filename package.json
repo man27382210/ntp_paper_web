@@ -1,0 +1,31 @@
+{
+	"name": "start-up-taiwan",
+	"version": "0.0.1",
+	"private": true,
+	"scripts": {
+		"start": "node app.js"
+	},
+	"dependencies": {
+		"express": "4.*",
+		"cookie-parser": "*",
+		"body-parser": "*",
+		"multer": "*",
+		"express-session": "*",
+		"serve-favicon": "*",
+		"morgan": "*",
+		"jade": "*",
+		"stylus": "*",
+		"mongoose": "3.6.x",
+		"async": "*",		
+		"q": "*",
+		"express-useragent": "*",
+		"connect-ensure-login": "*",
+		"passport": "*",
+		"passport-facebook": "*",
+    	"passport-google-oauth": "*",
+    	"passport-local": "*",
+		"moment": "*",
+		"bcrypt-nodejs": "*",
+		"winston": "*"
+	}
+}

@@ -1,0 +1,37 @@
+doctype html
+html(lang="zh-tw")
+	head
+		title= ctrl_title
+
+		meta(http-equiv="Content-Type", content="text/html; charset=utf-8")
+		meta(name="language", content="zh_TW")
+		meta(name="viewport", content="width=device-width, initial-scale=1.0, minimum-scale=1, maximum-scale=1")
+
+		link(rel="stylesheet", href="http://normalize-css.googlecode.com/svn/trunk/normalize.css")
+		link(rel="stylesheet", href="https://code.jquery.com/ui/1.11.2/themes/sunny/jquery-ui.css")
+		link(rel="stylesheet", href="//cdn.datatables.net/1.10.5/css/jquery.dataTables.min.css")
+		link(rel="stylesheet", href="/stylesheets/style.css")
+		link(rel="icon", type="image/x-icon", href="images/cloudeep.ico")
+		link(rel="shortcut icon", href="images/cloudeep.ico")
+		script(src="https://code.jquery.com/jquery-1.11.1.min.js")
+		script(src="https://code.jquery.com/ui/1.11.1/jquery-ui.min.js")
+		script(src="/javascripts/moment_min/moment.min.js")
+		script(src="/javascripts/sprintf.min.js")
+		script(src="/javascripts/tools.js")
+		script(src="/javascripts/jquery.form.js")
+		script(src="//cdn.datatables.net/1.10.5/js/jquery.dataTables.min.js")
+			
+
+	body
+		//- include includes/header
+
+		#page_container
+			block body_content
+
+		//- include includes/footer
+
+		block append init_script
+			script.
+				$('.ui_button').button();
+			
+		block body_script

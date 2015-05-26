@@ -1,0 +1,43 @@
+extends layout
+
+block body_content
+	.page_use
+		table(cellpadding="0" cellspacing="0" border="0" class="display" id="demo")
+
+	script.
+
+		$(function(){
+			var dataSetUse = !{JSON.stringify(ctrl_plats)};
+			dataSet = []
+			for(var i=0; i<dataSetUse.length; i++) {
+				data_element = [];
+				data_element[0] = dataSetUse[i]["name"];
+				data_element[1] = dataSetUse[i]["plat_origin"];
+				//- data_element[2] = dataSetUse[i]["plat_c"];
+				//- data_element[3] = dataSetUse[i]["plat_bdis"];
+				//- data_element[4] = dataSetUse[i]["plat_wdis"];
+				data_element[2] = dataSetUse[i]["pbc_x"];
+				data_element[3] = dataSetUse[i]["pnc_x"];
+				data_element[4] = dataSetUse[i]["npn_x"];
+				data_element[5] = dataSetUse[i]["jbs_x"];
+				dataSet.push(data_element);
+			}
+			
+			//- $('#demo').html(htmlUse);
+			$('#demo').dataTable({
+				"data": dataSet,
+				"iDisplayLength": dataSet.length,
+				"width": '90%',
+				"columns": [
+					{ "title": "議員名字"},
+					{ "title": "原始政見"},
+					//- { "title": "closeness coefficient"},
+					//- { "title": "最佳解距離"},
+					//- { "title": "最劣解距離"},
+					{ "title": "政見議案原始分數"},
+					{ "title": "政見新聞原始分數"},
+					{ "title": "政見新聞正負面原始分數"},
+					{ "title": "政見議案參與數原始分數"}
+				]
+			});
+		});

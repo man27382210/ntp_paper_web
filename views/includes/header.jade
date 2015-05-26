@@ -1,0 +1,27 @@
+- var isLogin = (typeof(locals.user) != 'undefined')
+- var isAdmin = ((typeof(locals.user) != 'undefined') && (locals.user.name == 'admin'))
+header
+	#header
+		a#header_logo(href="/") 
+			span.color_main Start Up 
+			span.color_main_light Taiwan
+		ul#header_menu
+			a(href="/about") 
+				li 關於我們
+			- if(!isLogin)
+				a(href="/login")
+					li 成員登入
+			a(href="/workchance")
+				li 工作機會
+			- if(isAdmin)
+				a(href="/admin")
+					li admin
+			- if(isLogin)
+				a(href="/member")
+					li 編輯帳戶
+				a(href="/logout")
+					li 成員登出
+			//- li.input
+			//- 	form#header_search(name='item_search_form' action='/')
+			//- 		input#item_search(type="text", name="item_search")
+			//- 		button.button_search#button_item_search(type="submit") search

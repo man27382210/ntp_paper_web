@@ -1,0 +1,324 @@
+extends layout
+
+mixin category_text(str)
+	- str = str.replace('、', '/')
+	- if (str.length > 5)
+		- str = str.substring(0, 4) + '<br>' + str.substring(4)
+		.category_text(style="margin-top: -10px;") !{str}
+	- else
+		.category_text #{str}
+
+block body_content
+	- var isOwner = ((typeof(locals.user) != 'undefined') && (locals.user.id == ctrl_member.id))
+	- var isAdmin = ((typeof(locals.user) != 'undefined') && (locals.user.name == 'admin'))
+	include ./includes/dialog_event.jade
+	include ./includes/dialog_link.jade
+	include ./includes/dialog_job.jade
+	.page
+		#member_image
+			.category
+				- if (typeof(ctrl_member.category) != 'undefined')
+					.category_mark.sprite(class="sprite sprite_#{ctrl_member.category}")
+					mixin category_text(GLOBAL.CATEGORY[ctrl_member.category]['tw'])
+			//- TODO: /images => /uploads
+			div.logo
+				img(src="/uploads/#{ctrl_member.id}_logo", onload="fitDivEvent(event);", onerror="this.src='';")
+				- if (isOwner || isAdmin)
+					form#upload_logo(action="/resource/member/#{ctrl_member.id}", method="post", enctype="multipart/form-data", style="display: none;")
+						// input(type="hidden", name="_method", value="put")
+						input.file(name="logo", type="file")
+					.upload#upload_logo_button 上傳 Logo
+			//- TODO: /images => /uploads
+			div.image
+				img(src="/uploads/#{ctrl_member.id}_image", onload="fitDivEvent(event);", onerror="this.src='';")
+				- if (isOwner || isAdmin)
+					form#upload_image(action="/resource/member/#{ctrl_member.id}", method="post", enctype="multipart/form-data", style="display: none;")
+						// input(type="hidden", name="_method", value="put")
+						input.file(name="image", type="file")
+					.upload#upload_image_button 上傳照片
+
+		- if (isOwner || isAdmin)
+			.member_content
+				h2.color_main_dark 會員顯示名稱
+				form#upload_fullname(action="/resource/member/#{ctrl_member.id}", method="post")
+					input(name="fullname", value="#{ctrl_member.fullname}")
+					.upload#upload_fullname_button 上傳
+			.member_content
+				h2.color_main_dark 會員更新密碼
+				form#upload_password(method="post", action="/resource/member/#{ctrl_member.id}")
+					.line
+						label(for="password") 新的密碼：
+						input#member_password(type="password", name="password")
+					.line
+						label(for="password_check") 再次確認：
+						input#member_password_check(type="password", name="password_check")
+					.upload#upload_password_button 更新密碼
+
+			hr
+
+		.member_content
+			h2.color_main_dark #{ctrl_member.fullname}簡介
+			- if (isOwner || isAdmin)
+				form#upload_introduction(action="/resource/member/#{ctrl_member.id}", method="post")
+					textarea(name="introduction")= ctrl_member.introduction
+					.upload#upload_introduction_button 上傳
+			- else
+				p#content_introduction= ctrl_member.introduction
+		script.
+			htmlNl2Para("#content_introduction");
+			parseURL("#content_introduction");
+
+		.member_content
+			h2.color_main_dark #{ctrl_member.fullname}與創新創業者的關係
+			- if (isOwner || isAdmin)
+				form#upload_relation(action="/resource/member/#{ctrl_member.id}", method="post")
+					textarea(name="relation")= ctrl_member.relation
+					.upload#upload_relation_button 上傳
+			- else
+				p#content_relation= ctrl_member.relation
+		script.
+			htmlNl2Para("#content_relation");
+			parseURL("#content_relation");
+
+		.member_content
+			h2.color_main_dark 進一步認識#{ctrl_member.fullname}
+			- if (isOwner || isAdmin)
+				form#upload_advance(action="/resource/member/#{ctrl_member.id}", method="post")
+					textarea(name="advance")= ctrl_member.advance
+					.upload#upload_advance_button 上傳
+			- else
+				p#content_advance= ctrl_member.advance
+		script.
+			htmlNl2Para("#content_advance");
+			parseURL("#content_advance");
+		- if (isOwner || isAdmin)
+			.member_content
+				form#upload_category(action="/resource/member/#{ctrl_member.id}", method="post")
+					h2.color_main_dark 類別：
+					#upload_category_radio
+						- each category, index in GLOBAL.CATEGORY
+							- if(typeof(ctrl_member.category!='undefined') && (ctrl_member.category==category.en))
+								input(type="radio", id="upload_category#{index}", name="category", value="#{category.en}", checked=true)
+							- else 
+								input(type="radio", id="upload_category#{index}", name="category", value="#{category.en}")
+							label(for="upload_category#{index}") #{category.tw}
+					.upload#upload_category_button 更新分類
+
+		- if (typeof(ctrl_list_event)!='undefined' && ctrl_list_event.length>0)
+			hr
+			h2.color_main_dark 舉辦過的活動
+			table.simple_table(style="width: 100%")
+				tr
+					th(style="width:  5%;")
+					th(style="width: 10%;") 日期
+					th(style="width: 65%;") 活動名稱
+					- if (isOwner || isAdmin)
+						th(style="width: 20%;") 功能
+				- each event, index in ctrl_list_event
+					tr
+						td= index + 1
+						td= event.day
+						td(style="text-align: left;")
+							a(href="#{event.url}") #{event.title}
+						- if (isOwner || isAdmin)
+							td(style="text-align: center;")
+								button.ui_button(data-edit-id="#{event.id}", data-edit-index=index, data-edit-type="event").edit 修改
+								button.ui_button(data-delete-id="#{event.id}", data-delete-type="event").delete 刪除
+		- if (isOwner || isAdmin)
+			button.ui_button#new_event(style="margin-top: 10px;") 新增活動
+
+		- if (typeof(ctrl_list_link)!='undefined' && ctrl_list_link.length>0)
+			hr
+			h2.color_main_dark 分享過的文章列表
+			table.simple_table(style="width: 100%;")
+				tr
+					th(style="width: 5%;")
+					th(style="width: 10%;") 分享日期
+					th(style="width: 65%;") 名稱
+					- if (isOwner || isAdmin)
+						th(style="width: 20%") 功能
+				- each link, index in ctrl_list_link
+					tr
+						td= index + 1
+						td= link.day
+						td(style="text-align: left;")
+							a(href="/event/#{link.id}") #{link.title}
+						- if (isOwner || isAdmin)
+							td(style="text-align: center;")
+								button.ui_button(data-edit-id="#{link.id}", data-edit-index=index, data-edit-type="link").edit 修改
+								button.ui_button(data-delete-id="#{link.id}", data-delete-type="link").delete 刪除
+
+		- if (isOwner || isAdmin)
+			button.ui_button#new_link(style="margin-top: 10px;") 新增分享文章
+
+		- if (isAdmin)
+			- if (typeof(ctrl_list_job)!='undefined' && ctrl_list_job.length>0)
+				hr
+				h2.color_main_dark 提供的工作列表
+				table.simple_table(style="width: 100%;")
+					tr
+						th(style="width: 5%;")
+						th(style="width: 10%;") 職缺開出日期
+						th(style="width: 65%;") 名稱
+						- if (isOwner || isAdmin)
+							th(style="width: 20%") 功能
+					- each job, index in ctrl_list_job
+						tr
+							td= index + 1
+							td= job.day
+							td(style="text-align: left;")
+								a(href="/job/#{job.id}") #{job.title}
+							- if (isOwner || isAdmin)
+								td(style="text-align: center;")
+									button.ui_button(data-edit-id="#{job.id}", data-edit-index=index, data-edit-type="job").edit 修改
+									button.ui_button(data-delete-id="#{job.id}", data-delete-type="job").delete 刪除
+
+			- if (isOwner || isAdmin)
+				button.ui_button#new_job(style="margin-top: 10px;") 新增工作機會
+
+
+block body_script
+	script.
+		var ctrl_list_event = !{JSON.stringify(ctrl_list_event)};
+		var ctrl_list_link = !{JSON.stringify(ctrl_list_link)};
+		var ctrl_list_job = !{JSON.stringify(ctrl_list_job)};
+
+		function setupFileUpload(selector) {
+			$(selector + '_button').on('click', function(event) {
+				$(selector + ' .file').click();
+			});
+			$(selector + ' .file').on('change', function(event) {
+				$(selector).ajaxSubmit({
+					success: function(response, status, xhr, form) {
+						location.reload();
+					},
+					error: function(xhr, error) {
+						alert('Upload failed. Please try again.');
+					}
+				});
+			});
+		}
+
+		function setupUpload(selector) {
+			$(selector + '_button').on('click', function(event) {
+				$(selector).ajaxSubmit({
+					success: function(response, status, xhr, form) {
+						location.reload();
+					},
+					error: function(xhr, error) {
+						alert('Upload failed. Please try again.');
+					}
+				});
+			});			
+		}
+		function setupUploadPwd() {
+			$('#upload_password_button').on('click', function(event) {
+				var pwd = $('#member_password').val();
+				var pwd_c = $('#member_password_check').val();
+				if(pwd != pwd_c){
+					alert("密碼確認失敗");
+					return;
+				}else{
+					$('#upload_password').ajaxSubmit({
+						success: function(response, status, xhr, form) {
+							alert("更新成功");
+							location.reload();
+						},
+						error: function(xhr, error) {
+							alert('Upload failed. Please try again.');
+						}
+					});
+				}
+			});			
+		}
+		setupFileUpload('#upload_logo');
+		setupFileUpload('#upload_image');
+		setupUpload('#upload_fullname');
+		setupUpload('#upload_category');
+		setupUpload('#upload_introduction');
+		setupUpload('#upload_relation');
+		setupUpload('#upload_advance');
+		setupUploadPwd();
+
+		$('#datepicker').datepicker();
+		$('#upload_category_radio').buttonset();
+
+		$('.edit').on('click', function(event){
+			var type = $(this).data('edit-type');
+			var id = $(this).data('edit-id');
+			var index = $(this).data('edit-index');
+			var update_object = {};
+			if(type == 'event'){
+				update_object = ctrl_list_event[index];
+				console.log(update_object);
+				$('#dialog_event form').attr('action', '/resource/'+type+'/'+id);
+				$('#dialog_event form .title').val(update_object["title"]);
+				$('#dialog_event form .date').datepicker('setDate', new Date(update_object["event_time"]));
+				var catefilter = "[value="+update_object["category"]+"]";
+				$('#dialog_event form .category').filter(catefilter).attr('checked', true);
+				$('#dialog_event form .category').button("refresh");
+				$('#dialog_event form .place').val(update_object["place"]);
+				$('#dialog_event form .url').val(update_object["url"]);
+				$('#dialog_event form .des').val(update_object["description"]);
+				$('#dialog_event').dialog('open');	
+			}else if(type == 'link') {
+				update_object = ctrl_list_link[index];
+				$('#dialog_link form').attr('action', '/resource/'+type+'/'+id);
+				$('#dialog_link form .title').val(update_object["title"]);
+				$('#dialog_link form .url').val(update_object["url"]);
+				$('#dialog_link form .category').each(function(){
+					if($(this).val()==update_object["category"]){
+						console.log($(this));
+						$(this).attr('checked', true);
+						$(this).button('refresh');
+					}
+				});
+				$('#dialog_link').dialog('open');	
+			}else if(type == 'job') {
+				update_object = ctrl_list_job[index];
+				$('#dialog_job form').attr('action', '/resource/'+type+'/'+id);
+				$('#dialog_job form .title').val(update_object["title"]);
+				$('#dialog_job form .url').val(update_object["url"]);
+				$('#dialog_job form .des').val(update_object["description"]);
+				$('#dialog_job form .count').val(update_object["count"]);
+				$('#dialog_job form .email').val(update_object["email"]);
+				//- $('#dialog_job form .category').each(function(){
+				//- 	if($(this).val()==update_object["category"]){
+				//- 		console.log($(this));
+				//- 		$(this).attr('checked', true);
+				//- 		$(this).button('refresh');
+				//- 	}
+				//- });
+				//- salary:         String,
+				$('#dialog_job').dialog('open');	
+			}
+		});
+
+		$('.delete').on('click', function(event){
+			var type = $(this).attr('data-delete-type');
+			var id = $(this).attr('data-delete-id');
+			console.log(type);
+			console.log(id);
+			$.ajax('/resource/'+type+'/' + id, {
+				type: 'DELETE',
+				success: function(data) {
+					console.log(data);
+					location.reload();
+				}
+			});	
+		});
+
+		$('#new_event').on('click', function(event) {
+			clearDialogEvent();
+			$('#dialog_event').dialog('open');
+		});
+
+		$('#new_link').on('click', function(event) {
+			clearDialogLink();
+			$('#dialog_link').dialog('open');
+		});
+
+		$('#new_job').on('click', function(event){
+			clearDialogJob();
+			$('#dialog_job').dialog('open');
+		});
