@@ -103,9 +103,10 @@ function initApp()
 		next();
 	});
 
-	app.get('/', routeIndex.getAllPlats);
-	app.get('/all_plats_all', routeIndex.getAllPlats_all);
-	app.get('/all_plats_getAllPlatsJson', routeIndex.getAllPlatsJson);
+	app.get('/getAllPlats_topsis_fuzzy', routeIndex.getAllPlats_topsis_fuzzy);
+	app.get('/getAllPlats_topsis_entropy', routeIndex.getAllPlats_topsis_entropy);
+	app.get('/getAllPlats_saw_entropy', routeIndex.getAllPlats_saw_entropy);
+	app.get('/all_plats_getAllPlats_topsis_json', routeIndex.all_plats_getAllPlats_topsis_json);
 
 	// Route all exceptions (should be the last route) to error page.
 	app.use(function(req, res, next) {

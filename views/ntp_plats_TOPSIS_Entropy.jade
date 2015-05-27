@@ -1,0 +1,35 @@
+extends layout
+
+block body_content
+	.page_use
+		table(cellpadding="0" cellspacing="0" border="0" class="display" id="demo")
+
+	script.
+
+		$(function(){
+			var dataSetUse = !{JSON.stringify(ctrl_plats)};
+			dataSet = []
+			for(var i=0; i<dataSetUse.length; i++) {
+				data_element = [];
+				data_element[0] = dataSetUse[i]["name"];
+				data_element[1] = dataSetUse[i]["plat_origin"];
+				data_element[2] = dataSetUse[i]["plat_c"];
+				dataSet.push(data_element);
+			}
+			
+			$('#demo').dataTable({
+				"data": dataSet,
+				"iDisplayLength": dataSet.length,
+				"width": '90%',
+				"columnDefs": [
+				    { "width": "10%", "targets": 0 },
+				    { "width": "20%", "targets": 1 },
+				    { "width": "10%", "targets": 2 }
+				 ],
+				"columns": [
+					{ "title": "議員名字"},
+					{ "title": "原始政見"},
+					{ "title": "closeness coefficient"}
+				]
+			});
+		});
