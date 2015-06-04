@@ -6,7 +6,7 @@ var moment = require('moment')
   ;
 
 var ObjectId = GLOBAL.MONGOOSE.Types.ObjectId;
-var the_model = GLOBAL.MONGOOSE.model('Ntp_Platform_TOPSIS_Fuzzy', new GLOBAL.MONGOOSE.Schema({any: {} }), "ntp_platform_TOPSIS_fuzzy");
+var the_model = GLOBAL.MONGOOSE.model('Ntp_Platform_Relation', new GLOBAL.MONGOOSE.Schema({any: {} }), "ntp_platform_relation");
 
 /**
  * The exports functions.

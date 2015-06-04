@@ -14,6 +14,7 @@ block body_content
 				data_element[0] = dataSetUse[i]["name"];
 				data_element[1] = dataSetUse[i]["plat_origin"];
 				data_element[2] = dataSetUse[i]["plat_amount"];
+				data_element[3] = dataSetUse[i]["_id"];
 				dataSet.push(data_element);
 			}
 			
@@ -24,7 +25,8 @@ block body_content
 				"columnDefs": [
 				    { "width": "10%", "targets": 0 },
 				    { "width": "20%", "targets": 1 },
-				    { "width": "10%", "targets": 2 }
+				    { "width": "10%", "targets": 2 },
+				    { "width": "10%", "targets": 3 },
 				 ],
 				"columns": [
 					{ "title": "議員名字"},

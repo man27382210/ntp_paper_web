@@ -1,0 +1,46 @@
+extends layout
+
+block body_content
+	.page_use
+		table(cellpadding="0" cellspacing="0" border="0" class="display" id="demo")
+
+	script.
+
+		$(function(){
+			var dataSetUse = !{JSON.stringify(ctrl_plats)};
+			dataSet = []
+
+			var columnDefs = [{ "width": "20%", "targets": 0 }];
+			var columns = [{ "title": "原始政見"}];
+			
+			ids = [];
+			for(var i=0; i<dataSetUse.length; i++) {
+				columns.push({ "title":dataSetUse[i]["plat_origin"]});
+				ids.push(dataSetUse[i]["_id"]);
+			}
+
+			for(var i=0; i<dataSetUse.length; i++) {
+				data_element = [];
+				data_element[0] = dataSetUse[i]["plat_origin"];
+				for(var j=0; j < ids.length; j++){
+					var  key = ids[j];
+					data_element[j+1] = dataSetUse[i]["cosine_other"][key]["cosine"];
+				}
+				dataSet.push(data_element);
+			}
+
+			
+			
+			for (var i = 0; i<dataSetUse.length; i++){
+				columnDefs.push({ "width": "10%", "targets": 0 });
+			}
+
+			
+			$('#demo').dataTable({
+				"data": dataSet,
+				"iDisplayLength": dataSet.length,
+				"width": '90%',
+				"columnDefs": columnDefs,
+				"columns": columns
+			});
+		});

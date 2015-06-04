@@ -13,8 +13,9 @@ block body_content
 				data_element = [];
 				data_element[0] = dataSetUse[i]["name"];
 				data_element[1] = dataSetUse[i]["plat_origin"];
-				data_element[2] = dataSetUse[i]["plat_c"];
-				data_element[3] = dataSetUse[i]["_id"];
+				data_element[2] = dataSetUse[i]["value"];
+				data_element[3] = dataSetUse[i]["sort"];
+				data_element[4] = dataSetUse[i]["_id"];
 				dataSet.push(data_element);
 			}
 			
@@ -27,11 +28,13 @@ block body_content
 				    { "width": "20%", "targets": 1 },
 				    { "width": "10%", "targets": 2 },
 				    { "width": "10%", "targets": 3 },
+				    { "width": "10%", "targets": 4 },
 				 ],
 				"columns": [
 					{ "title": "議員名字"},
 					{ "title": "原始政見"},
-					{ "title": "closeness coefficient"}
+					{ "title": "value"},
+					{ "title": "排名"}
 				]
 			});
 		});

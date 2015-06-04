@@ -24,3 +24,41 @@ exports.index = function(callback) {
 		
 	});
 };
+
+exports.getCr_Plats = function(callback) {
+	the_model.find().lean().exec(function(err, plats) {
+		crs_array = [];
+		crs = {};
+		async.each(plats, function(plat, done) {
+			if(!crs[plat["cr_id"]]) {
+				crs[plat["cr_id"]] = [];
+			}
+			crs[plat["cr_id"]].push(plat);
+			done(null);
+		}, function(err){
+			array_crs = [];
+			for(var key in crs){
+				name = "";
+				array = crs[key];
+				array_element = [];
+				for (var i =0 ; i < 638 - array.length; i++){
+					array_element.push(0);
+				}
+				for(var i in array){
+					var element = array[i]
+					for(var j in plats){
+						if(element["_id"] == plats[j]["_id"]){
+							name = element["name"];
+							array_element.splice(j, 0, element["plat_c"]);
+						}
+					}
+					
+				}
+				array_element.splice(0, 0, name);
+				console.log(array_element.length);
+				array_crs.push(array_element);
+			}
+			callback(null, array_crs)
+		});
+	});
+}
