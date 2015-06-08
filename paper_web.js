@@ -106,8 +106,9 @@ function initApp()
 	app.get('/getAllPlats_topsis_entropy', routeIndex.getAllPlats_topsis_entropy);
 	app.get('/getAllPlats_saw_entropy', routeIndex.getAllPlats_saw_entropy);
 	app.get('/getAllPlats_pairwise_sort', routeIndex.getAllPlats_pairwise_sort);
-	app.get('/getCr_Plats_topsis', routeIndex.getCr_Plats_topsis);
-	app.get('/getCr_Plats_saw', routeIndex.getCr_Plats_saw);
+	app.get('/getCr_Plats_topsis_sparse', routeIndex.getCr_Plats_topsis_sparse);
+	app.get('/getCr_Plats_saw_sparse', routeIndex.getCr_Plats_saw_sparse);
+	app.get('/getAllPlats_pairwise_sparse', routeIndex.getAllPlats_pairwise_sparse);
 	app.get('/plats_relation', routeIndex.plats_relation);
 
 	// Route all exceptions (should be the last route) to error page.

@@ -8,20 +8,33 @@ block body_content
 
 		$(function(){
 			var dataSetUse = !{JSON.stringify(ctrl_plats)};
+			var plat_list = dataSetUse["plat_origin_list"];
+			var cr_plats = dataSetUse["cr_plats"];
+
 			var columns = [];
 			var columnDefs = [];
 			columns.push({ "title": "議員名字"});
 			columnDefs.push({ "width": "10%", "targets": 0 });
 			for (var i =0 ; i<638; i++){
-				columns.push({ "title": "政見"+(i+1)});
+				columns.push({ "title": plat_list[i]});
 				columnDefs.push({ "width": "10%", "targets": i+1});
 			}
-			console.log(columns.length);
-			$('#demo').dataTable({
-				"data": dataSetUse,
-				"iDisplayLength": dataSetUse.length,
+			var table = $('#demo').dataTable({
+				"data": cr_plats,
+				"iDisplayLength": cr_plats.length,
 				"width": '90%',
 				"columnDefs": columnDefs,
 				"columns": columns
 			});
+			$('#demo tbody').on( 'click', 'tr', function () {
+				if ( $(this).hasClass('selected') ) {
+					$(this).removeClass('selected');
+				}
+				else {
+					table.$('tr.selected').removeClass('selected');
+					$(this).addClass('selected');
+				}
+			});
 		});
+
+		

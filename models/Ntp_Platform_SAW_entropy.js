@@ -55,7 +55,6 @@ exports.getCr_Plats = function(callback) {
 					
 				}
 				array_element.splice(0, 0, name);
-				console.log(array_element.length);
 				array_crs.push(array_element);
 			}
 			callback(null, array_crs)
