@@ -52,7 +52,6 @@ exports.getCr_Plats = function(callback) {
 							array_element.splice(j, 0, element["plat_c"]);
 						}
 					}
-					
 				}
 				array_element.splice(0, 0, name);
 				array_crs.push(array_element);

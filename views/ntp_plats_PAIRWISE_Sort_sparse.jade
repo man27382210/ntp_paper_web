@@ -3,7 +3,8 @@ extends layout
 block body_content
 	.page_use
 		table(cellpadding="0" cellspacing="0" border="0" class="display" id="demo")
-
+			thead
+				tr.tr_use
 	script.
 
 		$(function(){
@@ -13,18 +14,24 @@ block body_content
 
 			var columns = [];
 			var columnDefs = [];
-			columns.push({ "title": "議員名字"});
+			columns.push("<th>議員名字</th>")
 			columnDefs.push({ "width": "10%", "targets": 0 });
 			for (var i =0 ; i<638; i++){
-				columns.push({ "title": plat_list[i]});
-				columnDefs.push({ "width": "10%", "targets": i+1});
+				plat_str = plat_list[i];
+				if(plat_str.length > 30){
+					plat_str = plat_str.substring(0, 30);
+					plat_str = plat_str+"...";
+				}
+				columns.push("<th class=title_columns data-origin="+plat_list[i]+">"+plat_str+"</th>");
+				columnDefs.push({ "width": "20%", "targets": i+1});
+			}
+			for(var i =0 ; i< columns.length; i++){
+				$(".tr_use").append(columns[i]);
 			}
 			var table = $('#demo').dataTable({
 				"data": cr_plats,
-				"iDisplayLength": cr_plats.length,
-				"width": '90%',
-				"columnDefs": columnDefs,
-				"columns": columns
+				"iDisplayLength": cr_plats.length
+				//- "width": '90%'
 			});
 			$('#demo tbody').on( 'click', 'tr', function () {
 				if ( $(this).hasClass('selected') ) {
@@ -34,6 +41,9 @@ block body_content
 					table.$('tr.selected').removeClass('selected');
 					$(this).addClass('selected');
 				}
+			});
+			$('.title_columns').hover(function(){
+				$(this).tipsy({fallback:$(this).data("origin")})
 			});
 		});
 
