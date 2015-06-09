@@ -28,13 +28,17 @@ exports.index = function(callback) {
 exports.getCr_Plats = function(callback) {
 	the_model.find().lean().exec(function(err, plats) {
 		crs_array = [];
+		plat_list = [];
 		crs = {};
 		async.each(plats, function(plat, done) {
-			if(!crs[plat["cr_id"]]) {
-				crs[plat["cr_id"]] = [];
-			}
-			crs[plat["cr_id"]].push(plat);
-			done(null);
+			ntp_Platform_db.get(plat["_id"], function(err, plat_origin){
+				plat_list.push(plat_origin["plat_origin"]);
+				if(!crs[plat["cr_id"]]) {
+					crs[plat["cr_id"]] = [];
+				}
+				crs[plat["cr_id"]].push(plat);
+				done(null);
+			});
 		}, function(err){
 			array_crs = [];
 			for(var key in crs){
@@ -56,6 +60,7 @@ exports.getCr_Plats = function(callback) {
 				array_element.splice(0, 0, name);
 				array_crs.push(array_element);
 			}
+			array_crs.push(plat_list);
 			callback(null, array_crs)
 		});
 	});
