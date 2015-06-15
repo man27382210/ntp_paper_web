@@ -103,13 +103,19 @@ function initApp()
 		next();
 	});
 
+	//topsis
 	app.get('/getAllPlats_topsis_entropy', routeIndex.getAllPlats_topsis_entropy);
-	app.get('/getAllPlats_saw_entropy', routeIndex.getAllPlats_saw_entropy);
-	app.get('/getAllPlats_pairwise_sort', routeIndex.getAllPlats_pairwise_sort);
 	app.get('/getCr_Plats_topsis_sparse', routeIndex.getCr_Plats_topsis_sparse);
+	app.get('/getCr_Plats_topsis_sparse_each', routeIndex.getCr_Plats_topsis_sparse_each);
+
+	app.get('/getAllPlats_saw_entropy', routeIndex.getAllPlats_saw_entropy);
 	app.get('/getCr_Plats_saw_sparse', routeIndex.getCr_Plats_saw_sparse);
+	app.get('/getCr_Plats_saw_sparse_each', routeIndex.getCr_Plats_saw_sparse_each);
+
+	app.get('/getAllPlats_pairwise_sort', routeIndex.getAllPlats_pairwise_sort);
 	app.get('/getAllPlats_pairwise_sparse', routeIndex.getAllPlats_pairwise_sparse);
-	app.get('/plats_relation', routeIndex.plats_relation);
+	
+	// app.get('/plats_relation', routeIndex.plats_relation);
 
 	// Route all exceptions (should be the last route) to error page.
 	app.use(function(req, res, next) {

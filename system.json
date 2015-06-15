@@ -15,7 +15,7 @@
 		"google.app_secret":  	"",
 		"email.account": 		"",
 		"email.password": 		"",
-		"mongodb.host": 		"mongodb://localhost/",
+		"mongodb.host": 		"mongodb://localhost",
 		"mongodb.dbname": 		"ntp_councilor"
 	}
 }

@@ -25,6 +25,14 @@ exports.getCr_Plats_topsis_sparse = function(req, res) {
 		});
 	});
 }
+exports.getCr_Plats_topsis_sparse_each = function(req, res){
+	var ntp_Platform_TOPSIS_Compare_db = require('../models/Ntp_Crs_TOPSIS_Compare');
+	ntp_Platform_TOPSIS_Compare_db.index(function(err, results){
+		res.render('ntp_plats_TOPSIS_Entropy_sparse_each',{
+			ctrl_plats: results
+		});
+	});
+}
 
 //saw
 exports.getAllPlats_saw_entropy = function(req, res) {
@@ -43,6 +51,14 @@ exports.getCr_Plats_saw_sparse = function(req, res) {
 		});
 	});
 }
+exports.getCr_Plats_saw_sparse_each = function(req, res) {
+	var ntp_Platform_SAW_Compare_db = require('../models/Ntp_Crs_SAW_Compare');
+	ntp_Platform_SAW_Compare_db.index(function(err, results){
+		res.render('ntp_plats_SAW_Entropy_sparse_each',{
+			ctrl_plats: results
+		});
+	});
+}
 
 //pairwise
 exports.getAllPlats_pairwise_sort = function(req, res) {
@@ -54,7 +70,7 @@ exports.getAllPlats_pairwise_sort = function(req, res) {
 	});
 }
 exports.getAllPlats_pairwise_sparse = function(req, res){
-	var ntp_Crs_Compare_db = require('../models/Ntp_Crs_Compare');
+	var ntp_Crs_Compare_db = require('../models/Ntp_Crs_PAIRWISE_Compare');
 	ntp_Crs_Compare_db.index(function(err, results){
 		plat_origin_value_dict = {};
 		plat_origin_list = [];

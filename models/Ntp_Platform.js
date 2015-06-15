@@ -22,3 +22,9 @@ exports.get = function(id, callback) {
 		callback(null, plat[0]);	
 	});
 };
+
+exports.getAll = function(callback) {
+	the_model.find().lean().exec(function(err, plats) {
+		callback(null, plats);	
+	});	
+}

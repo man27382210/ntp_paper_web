@@ -16,7 +16,7 @@ function MongooseManager() {
  */
 MongooseManager.prototype.getManager = function(keyspace, callback)
 {
-	var dbmgr = mongoose.connect(GLOBAL.MONGODB_HOST + keyspace);
+	var dbmgr = mongoose.connect(GLOBAL.MONGODB_HOST+":27018/" + keyspace);
 	if (callback) callback(null, dbmgr);
 };
 

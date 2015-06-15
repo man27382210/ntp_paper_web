@@ -7,19 +7,22 @@ var moment = require('moment')
 
 var ObjectId = GLOBAL.MONGOOSE.Types.ObjectId; 
 
-var the_model = GLOBAL.MONGOOSE.model('Ntp_Crs_Compare', new GLOBAL.MONGOOSE.Schema({ any: {} }), "ntp_crs_compare");
+var the_model = GLOBAL.MONGOOSE.model('Ntp_Crs_TOPSIS_Compare', new GLOBAL.MONGOOSE.Schema({ any: {} }), "ntp_crs_TOPSIS_compare");
 
 /**
  * The exports functions.
  */
+
 exports.index = function(callback) {
 	the_model.find().lean().exec(function(err, crs) {
 		async.each(crs, function(cr, done){
-			value = {};
+			value = [];
+			list_return = {};
 			plat_id_list = [];
+			value.push(cr["cr_name"]);
 			for(var i =0; i<638; i++){
-				value[cr["cr_plat_bill_cor_list"][i]["plat_id"]] = cr["cr_plat_bill_cor_list"][i]["accuracy"] + cr["cr_plat_news_cor_list"][i]["accuracy"] + cr["cr_plat_bill_join_cor_list"][i]["join_count"]+ cr["cr_plat_news_pn_cor_list"][i]["join_count"];
-				plat_id_list[i] = cr["cr_plat_bill_cor_list"][i]["plat_id"];
+				value.push(cr["plat_c_list"][i]["accuracy"]);
+				plat_id_list.push(cr["plat_c_list"][i]["plat_id"]);
 			}
 			cr["value"] = value;
 			cr["plat_id_list"] = plat_id_list;
@@ -34,16 +37,11 @@ exports.index = function(callback) {
 					done(null);
 				});
 			}, function(err){
-				crs.push(plat_list);
-				callback(null, crs);
+				list_return["plats"] = plat_list;
+				list_return["crs"] = crs;
+				callback(null, list_return);
 			});
 
 		});
-	});
-};
-
-exports.get = function(id, callback) {
-	the_model.find({"_id": id}).lean().exec(function(err, plat) {
-		callback(null, plat[0]);	
 	});
 };
