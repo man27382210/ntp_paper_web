@@ -99,5 +99,72 @@ exports.getAllPlats_pairwise_sparse = function(req, res){
 
 
 
+//Example
+//plat與news 50*50 填寫正確答案
+exports.get_plat_news_ground = function(req, res) {
+	var Ntp_Platform_Example_db = require('../models/Ntp_Platform_Example_2');
+	var Ntp_News_Example_db = require('../models/Ntp_News_Example');
+	var async = require('async');
+	async.parallel(
+		[
+			function(finish){
+				Ntp_Platform_Example_db.index(function(plats){
+					finish(null, plats);
+				});
+			},
+			function(finish){
+				Ntp_News_Example_db.index(function(news){
+					finish(null, news);
+				});
+			}
+		], function(err, results){
+			res.render('ntp_plat_news_ground',{
+				ctrl_plat: results[0],
+				ctrl_news: results[1]
+			});
+	});
+}
+
+exports.post_plat_news_ground = function(req, res){
+	var id = req.body.id;
+	var value = req.body.value;
+	var data = {"_id":id, "value":value};
+	var Ntp_Plat_News_Example_db = require('../models/Ntp_Plat_News_Example');
+	Ntp_Plat_News_Example_db.createOrCreate(data, function(result){
+		console.log(result);
+		res.json(result);
+	});
+}
+
+exports.get_plat_news_ground_have = function(req, res){
+	var Ntp_Plat_News_Example_db = require('../models/Ntp_Plat_News_Example');
+	Ntp_Plat_News_Example_db.index(function(results){
+		res.json(results);
+	});	
+}
 
 
+//plat與bill 50*50 填寫正確答案
+exports.get_plat_bill_ground = function(req, res) {
+	var Ntp_Platform_Example_db = require('../models/Ntp_Platform_Example_2');
+	var Ntp_Bills_Example_db = require('../models/Ntp_Bills_Example');
+	var async = require('async');
+	async.parallel(
+		[
+			function(finish){
+				Ntp_Platform_Example_db.index(function(plats){
+					finish(null, plats);
+				});
+			},
+			function(finish){
+				Ntp_Bills_Example_db.index(function(bills){
+					finish(null, bills);
+				});
+			}
+		], function(err, results){
+			res.render('ntp_plat_bill_ground',{
+				ctrl_plat: results[0],
+				ctrl_bill: results[1]
+			});
+	});
+}

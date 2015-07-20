@@ -114,7 +114,11 @@ function initApp()
 
 	app.get('/getAllPlats_pairwise_sort', routeIndex.getAllPlats_pairwise_sort);
 	app.get('/getAllPlats_pairwise_sparse', routeIndex.getAllPlats_pairwise_sparse);
+
 	
+	app.get('/get_plat_news_ground', routeIndex.get_plat_news_ground);
+	app.post('/post_plat_news_ground', routeIndex.post_plat_news_ground);
+	app.get('/get_plat_news_ground_have', routeIndex.get_plat_news_ground_have);
 	// app.get('/plats_relation', routeIndex.plats_relation);
 
 	// Route all exceptions (should be the last route) to error page.

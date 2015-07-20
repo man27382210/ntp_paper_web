@@ -1,0 +1,65 @@
+extends layout
+
+block body_content
+	.page_use
+
+	script.
+		$(function(){
+			function generateHTML(plat, news) {
+				var id = plat["_id"]+"_"+news["_id"];
+				html = "<ul>";
+				html = html + "<li>"+plat["plat_origin"]+"</li>";
+				html = html + "<li>"+news["story"]+"</li>"
+				html = html + "<li>"+id+"</li>"
+				html = html + "<li>";
+				for (var i =-5; i<6; i++){
+					html = html + "<input type='radio' name='radio_"+id+"' value='"+i+"'>"+i+"</input>";
+				}
+				html = html + "</li>";
+				html = html + "<button class='button' data-id='"+id+"'>儲存</button>";
+				html = html + "</ul>";
+				$(".page_use").append(html);
+			}
+			var plat_list = !{JSON.stringify(ctrl_plat)};
+			var news_list = !{JSON.stringify(ctrl_news)};
+
+			for(var i = 0; i<50; i++){
+				for(var j = 0; j<50; j++){
+					generateHTML(plat_list[i], news_list[j]);
+				}
+			}
+
+			$(".button").on('click', function(){
+				var id = $(this).data("id");
+				var value = $("input[name='radio_"+id+"']:checked").val();
+				ajax(id, value);
+			});
+
+			function ajax(id, value){
+				var data = {"id":id, "value":value};
+				$.ajax({
+					type: "POST",
+					url: "/post_plat_news_ground",
+					data: data,
+					success: function(save_id){
+						console.log(save_id);
+					}
+				});
+			}
+
+			function checkedValue(){
+				$.ajax({
+					type:"GET",
+					url: "/get_plat_news_ground_have",
+					success: function(items){
+						for (var i in items){
+							var id = items[i]["_id"];
+							var value = items[i]["value"]
+							$("input[name='radio_"+id+"'][value='"+value+"']").prop("checked", true);
+						}
+					}
+				});
+			}
+			checkedValue();
+		});
+		
